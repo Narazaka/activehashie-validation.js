@@ -39,14 +39,6 @@ export namespace ValidatesMethod {
     }
 
     export namespace Method {
-        /*
-        function pluck<Record extends ActiveHashRecord>(records: Record[], column: "id"): number[];
-        function pluck<Record extends ActiveHashRecord>(records: Record[], column: keyof Record): any[];
-        function pluck<Record extends ActiveHashRecord>(records: Record[], column: keyof Record) {
-            return records.map((record) => record[column]);
-        }
-        */
-
         export function presence<Record extends ActiveHashRecord>(
             errors: ModelValidationErrorReports<Record>, _: ValidatesMethod.Params.Presence,
             model: EagerQueryable<Record>, column: keyof Record,
