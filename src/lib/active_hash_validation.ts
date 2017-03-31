@@ -26,7 +26,7 @@ export class ActiveHashValidation {
     }
 
     errorMessages() {
-        this.errors.map(
+        return this.errors.map(
             (error) =>
                 `テーブル[${error.model.name}]のレコードID=${error.ids} カラム[${error.column}]において ${error.message}`,
         );
