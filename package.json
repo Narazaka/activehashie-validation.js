@@ -1,6 +1,6 @@
 {
   "name": "activehashie-validation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "activehashie Validation",
   "keywords": [],
   "main": "./dist/es2015/lib/index.js",
