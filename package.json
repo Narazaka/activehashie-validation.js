@@ -29,12 +29,11 @@
     "activehashie": "^2.3.0",
     "js-yaml": "^3.8.2",
     "lodash.isinteger": "^4.0.4",
-    "lodash.uniq": "^4.5.0",
-    "ts-node": "^3.0.2",
-    "tslint": "^4.5.1",
-    "typescript": "^2.2.2"
+    "lodash.uniq": "^4.5.0"
   },
   "devDependencies": {
-    "ava": "^0.18.2"
+    "ava": "^0.18.2",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.2"
   }
 }
