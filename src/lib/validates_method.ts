@@ -43,7 +43,7 @@ export namespace ValidatesMethod {
             errors: ModelValidationErrorReports<Record>, _: ValidatesMethod.Params.Presence,
             model: EagerQueryable<Record>, column: keyof Record,
         ) {
-            const ids = model.where(<any> {[column]: null}).pluck("id");
+            const ids = model.where(<any> {[column]: [null, undefined]}).pluck("id");
             if (ids.length !== 0) errors.push({column, ids, message: "nullであるデータが存在します"});
         }
 
