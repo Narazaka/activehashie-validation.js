@@ -1,0 +1,40 @@
+{
+  "name": "activehashie-validation",
+  "version": "1.0.0",
+  "description": "activehashie Validation",
+  "keywords": [],
+  "main": "./dist/es2015/lib/index.js",
+  "types": "./dist/es2015/lib/index.d.ts",
+  "files": [
+    "dist/es2015/lib"
+  ],
+  "scripts": {
+    "dist": "rm -rf dist && tsc",
+    "test": "npm run dist && ava ./dist/es2015/test/*.js",
+    "lint": "tslint *.ts src/**/*.ts test/**/*.ts",
+    "prepublish": "npm run dist"
+  },
+  "author": "Narazaka",
+  "license": "MIT",
+  "url": "https://github.com/Narazaka/activehashie-validation.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Narazaka/activehashie-validation.js.git"
+  },
+  "dependencies": {
+    "@types/js-yaml": "^3.5.29",
+    "@types/lodash.isinteger": "^4.0.2",
+    "@types/lodash.uniq": "^4.5.2",
+    "@types/node": "^7.0.12",
+    "activehashie": "^2.3.0",
+    "js-yaml": "^3.8.2",
+    "lodash.isinteger": "^4.0.4",
+    "lodash.uniq": "^4.5.0",
+    "ts-node": "^3.0.2",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.2"
+  },
+  "devDependencies": {
+    "ava": "^0.18.2"
+  }
+}
