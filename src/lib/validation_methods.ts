@@ -29,6 +29,8 @@ export class ValidationMethods<Record extends ActiveHashRecord> {
         switch (method) {
             case "presence":
                 return ValidatesMethod.Method.presence(this.errors, <any> params, model, column);
+            case "presenceBelongsTo":
+                return ValidatesMethod.Method.presenceBelongsTo(this.errors, <any> params, model, column);
             case "uniqueness":
                 return ValidatesMethod.Method.uniqueness(this.errors, <any> params, model, column);
             case "length":

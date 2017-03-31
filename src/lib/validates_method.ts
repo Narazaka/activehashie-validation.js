@@ -5,6 +5,7 @@ import {ModelValidationErrorReports} from "./model_validation_error_report";
 
 export interface ValidatesMethods {
     presence: ValidatesMethod.Params.Presence;
+    presenceBelongsTo: ValidatesMethod.Params.Presence;
     uniqueness: ValidatesMethod.Params.Uniqueness;
     length: ValidatesMethod.Params.Length;
     format: ValidatesMethod.Params.Format;
@@ -43,8 +44,16 @@ export namespace ValidatesMethod {
             errors: ModelValidationErrorReports<Record>, _: ValidatesMethod.Params.Presence,
             model: EagerQueryable<Record>, column: keyof Record,
         ) {
-            const ids = model.where(<any> {[column]: [null, undefined]}).pluck("id");
+            const ids = model.where(<any> {[column]: null}).pluck("id");
             if (ids.length !== 0) errors.push({column, ids, message: "nullであるデータが存在します"});
+        }
+
+        export function presenceBelongsTo<Record extends ActiveHashRecord>(
+            errors: ModelValidationErrorReports<Record>, _: ValidatesMethod.Params.Presence,
+            model: EagerQueryable<Record>, column: keyof Record,
+        ) {
+            const ids = model.where(<any> {[column]: [null, undefined]}).pluck("id");
+            if (ids.length !== 0) errors.push({column: <any> `${column}_id`, ids, message: "参照先がないデータが存在します"});
         }
 
         export function uniqueness<Record extends ActiveHashRecord>(
