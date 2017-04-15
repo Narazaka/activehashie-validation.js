@@ -15,7 +15,7 @@ export function generateHtmlReport(errors: ValidationErrorReports) {
     }
     const modelNames = uniq(errors.map((error) => error.model.name));
     const groupedErrors: Array<{modelName: string, errorsByGroup: ValidationErrorReports}> = [];
-    for (const modelName of modelNames) {
+    for (const modelName of modelNames.sort()) {
         const errorsByGroup = errors.filter((error) => error.model.name === modelName);
         groupedErrors.push({modelName, errorsByGroup});
     }
@@ -73,7 +73,7 @@ export function generateHtmlReport(errors: ValidationErrorReports) {
                         errorsByGroup.map((error, index) => `
                             <li>
                                 <a href="#${modelName}-${index + 1}">
-                                    <span class="column">${error.column}</span>
+                                    <span class="column">${error.column == null ? "" : error.column}</span>
                                     <span class="message">${error.message}</span>
                                 </a>
                             </li>
@@ -85,11 +85,17 @@ export function generateHtmlReport(errors: ValidationErrorReports) {
                             <section id="${modelName}-${index + 1}">
                                 <h3>
                                     <span class="index">${index + 1}</span>
-                                    <span class="column">${error.column}</span>
+                                    <span class="column">${error.column == null ? "" : error.column}</span>
                                     <span class="message">${error.message}</span>
                                 </h3>
                                 <table>
-                                <thead><tr><th>ID</th><th> </th><th>${error.column}</th></tr></thead>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th> </th>
+                                        <th>${error.column == null ? "" : error.column}</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                     ${
                                         error.model.where({id: error.ids}).toArray().map((record) => `
@@ -109,7 +115,7 @@ export function generateHtmlReport(errors: ValidationErrorReports) {
                             </section>
                         `).join("")
                     }
-                </section>
+                </article>
             `).join("")
         }
         </body>

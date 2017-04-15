@@ -53,7 +53,7 @@ export namespace ValidatesMethod {
             model: EagerQueryable<Record>, column: keyof Record,
         ) {
             const ids = model.where(<any> {[column]: [null, undefined]}).pluck("id");
-            if (ids.length !== 0) errors.push({column: <any> `${column}_id`, ids, message: "参照先がないデータが存在します"});
+            if (ids.length !== 0) errors.push({column, ids, message: "参照先がないデータが存在します"});
         }
 
         export function uniqueness<Record extends ActiveHashRecord>(
