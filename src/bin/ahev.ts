@@ -1,12 +1,12 @@
 #!node
-/* tslint:disable no-console */
-/* tslint:disable no-var-requires */
 import * as commander from "commander";
 import {FileSystemObject} from "fso";
 import {
     activeHashValidation,
     generateHtmlReport,
 } from "../lib";
+/* tslint:disable no-console */
+/* tslint:disable no-var-requires */
 const version = require("../../package.json").version;
 
 const program = commander.

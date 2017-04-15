@@ -3,16 +3,18 @@
   "version": "0.1.3",
   "description": "activehashie Validation",
   "keywords": [],
-  "main": "./dist/es2015/lib/index.js",
-  "types": "./dist/es2015/lib/index.d.ts",
-  "bin": "./dist/es2015/bin/ahev.js",
+  "main": "./dist/lib/index.js",
+  "types": "./dist/lib/index.d.ts",
+  "bin": {
+    "ahev": "./dist/bin/ahev.js"
+  },
   "files": [
-    "dist/es2015/bin",
-    "dist/es2015/lib"
+    "dist/bin",
+    "dist/lib"
   ],
   "scripts": {
     "dist": "rm -rf dist && tsc",
-    "test": "npm run dist && ava ./dist/es2015/test/*.js",
+    "test": "npm run dist && ava ./dist/test/*.js",
     "lint": "tslint *.ts src/**/*.ts test/**/*.ts",
     "prepublish": "npm run dist"
   },

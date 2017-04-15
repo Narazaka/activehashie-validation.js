@@ -11,7 +11,7 @@
     "noImplicitUseStrict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "dist/es2015",
+    "outDir": "dist",
     "preserveConstEnums": true,
     "sourceMap": true,
     "strictNullChecks": true
