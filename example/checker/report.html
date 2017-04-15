@@ -1,0 +1,203 @@
+
+        <!doctype html>
+        <html>
+            <head>
+                <meta charset="utf-8">
+                <title>データエラー</title>
+                <style>
+                    * { font-family: Meiryo; line-height: 1.6em; }
+                    body { margin: 0; }
+                    nav {
+                        position: fixed;
+                        width: 14em;
+                        height: 100%;
+                        padding: 1em;
+                        color: #eee;
+                        background: #333;
+                        overflow: auto;
+                    }
+                    nav ul { margin: 0; }
+                    nav a { color: #eee; text-decoration: none; }
+                    nav a:hover { text-decoration: underline; }
+                    article { margin-left: 16em; padding: 1em; color: #333; }
+                    article a { text-decoration: none; }
+                    article a:hover { text-decoration: underline; }
+                    .index { color: #333; }
+                    .index:after { content: ". "; }
+                    .column { color: #36f; font-weight: bold; }
+                    .message { color: #f33; font-weight: bold; }
+                    li { word-wrap: break-word; }
+                    table { border-collapse: collapse; }
+                    th { background: #eee; }
+                    th, td { border: 1px solid black; padding: 0.2em; }
+                </style>
+            </head>
+        <body>
+        <nav>
+            <h1>データエラー</h1>
+            <ul>
+            
+                    <li><a href="#Item">Item (2)</a></li>
+                
+                    <li><a href="#ItemGroup">ItemGroup (2)</a></li>
+                
+            </ul>
+        </nav>
+        
+                <article id="Item">
+                    <h2>Item</h2>
+                    <ol>
+                    
+                            <li>
+                                <a href="#Item-1">
+                                    <span class="column">name</span>
+                                    <span class="message">値[item3]がユニークではありません</span>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="#Item-2">
+                                    <span class="column">type</span>
+                                    <span class="message">typeは'a', 'b'のいずれかであるべきです</span>
+                                </a>
+                            </li>
+                        
+                    </ol>
+                    
+                            <section id="Item-1">
+                                <h3>
+                                    <span class="index">1</span>
+                                    <span class="column">name</span>
+                                    <span class="message">値[item3]がユニークではありません</span>
+                                </h3>
+                                <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th> </th>
+                                        <th>name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                            <tr>
+                                                <td>3</td>
+                                                <td>group2 - item3 [b]</td>
+                                                <td>item3</td>
+                                            </tr>
+                                        
+                                            <tr>
+                                                <td>4</td>
+                                                <td>group2 - item3 [c]</td>
+                                                <td>item3</td>
+                                            </tr>
+                                        
+                                </tbody>
+                                </table>
+                            </section>
+                        
+                            <section id="Item-2">
+                                <h3>
+                                    <span class="index">2</span>
+                                    <span class="column">type</span>
+                                    <span class="message">typeは'a', 'b'のいずれかであるべきです</span>
+                                </h3>
+                                <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th> </th>
+                                        <th>type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                            <tr>
+                                                <td>4</td>
+                                                <td>group2 - item3 [c]</td>
+                                                <td>c</td>
+                                            </tr>
+                                        
+                                </tbody>
+                                </table>
+                            </section>
+                        
+                </article>
+            
+                <article id="ItemGroup">
+                    <h2>ItemGroup</h2>
+                    <ol>
+                    
+                            <li>
+                                <a href="#ItemGroup-1">
+                                    <span class="column">name</span>
+                                    <span class="message">値[group2]がユニークではありません</span>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="#ItemGroup-2">
+                                    <span class="column"></span>
+                                    <span class="message">ItemGroupは10個以上必要です</span>
+                                </a>
+                            </li>
+                        
+                    </ol>
+                    
+                            <section id="ItemGroup-1">
+                                <h3>
+                                    <span class="index">1</span>
+                                    <span class="column">name</span>
+                                    <span class="message">値[group2]がユニークではありません</span>
+                                </h3>
+                                <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th> </th>
+                                        <th>name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                            <tr>
+                                                <td>2</td>
+                                                <td>group2</td>
+                                                <td>group2</td>
+                                            </tr>
+                                        
+                                            <tr>
+                                                <td>3</td>
+                                                <td>group2</td>
+                                                <td>group2</td>
+                                            </tr>
+                                        
+                                </tbody>
+                                </table>
+                            </section>
+                        
+                            <section id="ItemGroup-2">
+                                <h3>
+                                    <span class="index">2</span>
+                                    <span class="column"></span>
+                                    <span class="message">ItemGroupは10個以上必要です</span>
+                                </h3>
+                                <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th> </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                                </table>
+                            </section>
+                        
+                </article>
+            
+        </body>
+        </html>
+    

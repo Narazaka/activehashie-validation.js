@@ -1,0 +1,20 @@
+data1:
+  id: 1
+  name: item1
+  type: a
+  item_group_id: 1
+data2:
+  id: 2
+  name: item2
+  type: a
+  item_group_id: 1
+data3:
+  id: 3
+  name: item3
+  type: b
+  item_group_id: 2
+data4:
+  id: 4
+  name: item3
+  type: c
+  item_group_id: 2
