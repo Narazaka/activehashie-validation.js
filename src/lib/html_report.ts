@@ -1,4 +1,5 @@
 /* tslint:disable no-console */
+import {inspect} from "util";
 import {ValidationErrorReports} from "../lib";
 import uniq = require("lodash.uniq");
 
@@ -25,22 +26,36 @@ export function generateHtmlReport(errors: ValidationErrorReports) {
                 <meta charset="utf-8">
                 <title>データエラー</title>
                 <style>
+                    * { font-family: Meiryo; line-height: 1.6em; }
+                    body { margin: 0; }
+                    nav {
+                        position: fixed;
+                        width: 14em;
+                        height: 100%;
+                        padding: 1em;
+                        color: #eee;
+                        background: #333;
+                        overflow: auto;
+                    }
+                    nav ul { margin: 0; }
+                    nav a { color: #eee; text-decoration: none; }
+                    nav a:hover { text-decoration: underline; }
+                    article { margin-left: 16em; padding: 1em; color: #333; }
+                    article a { text-decoration: none; }
+                    article a:hover { text-decoration: underline; }
                     .index { color: #333; }
                     .index:after { content: ". "; }
-                    .column { color: #03f; font-weight: bold; }
-                    .message { color: #f30; font-weight: bold; }
-                    li { word-wrap: break-word }
-                    table { border-collapse: collapse }
-                    th { background: #ffd }
+                    .column { color: #36f; font-weight: bold; }
+                    .message { color: #f33; font-weight: bold; }
+                    li { word-wrap: break-word; }
+                    table { border-collapse: collapse; }
+                    th { background: #eee; }
                     th, td { border: 1px solid black; padding: 0.2em; }
-                    nav { position: fixed; width: 16em; }
-                    nav ul { margin: 0; }
-                    article { margin-left: 17em; }
                 </style>
             </head>
         <body>
-        <h1>データエラー</h1>
         <nav>
+            <h1>データエラー</h1>
             <ul>
             ${
                 groupedErrors.map(({modelName, errorsByGroup}) => `
@@ -80,13 +95,17 @@ export function generateHtmlReport(errors: ValidationErrorReports) {
                                         error.model.where({id: error.ids}).toArray().map((record) => `
                                             <tr>
                                                 <td>${record.id}</td>
-                                                <td>${record.displayName()}</td>
-                                                <td>${record[<string> error.column]}</td>
+                                                <td>${
+                                                    "displayName" in record ?
+                                                        (record as any).displayName() :
+                                                        inspect(record, false, 0, false)
+                                                }</td>
+                                                <td>${error.column ? record[error.column] : ""}</td>
                                             </tr>
                                         `).join("")
                                     }
                                 </tbody>
-                                </li>
+                                </table>
                             </section>
                         `).join("")
                     }

@@ -1,12 +1,14 @@
 #!node
 import * as commander from "commander";
 import {FileSystemObject} from "fso";
+import * as path from "path";
 import {
     activeHashValidation,
     generateHtmlReport,
 } from "../lib";
 /* tslint:disable no-console */
 /* tslint:disable no-var-requires */
+require("ts-node/register");
 const version = require("../../package.json").version;
 
 const program = commander.
@@ -34,7 +36,10 @@ function filesReqursive(entries: string[], extentions = [".ts"]) {
 
 const files = filesReqursive(program.args.length ? program.args : ["spec", "models"], (program as any).extension);
 if (!files.length) program.help();
-for (const file of files) require(file.path);
+for (const file of files) {
+    const filePath = file.path;
+    require(/^[\/.]/.test(filePath) ? filePath : path.join(process.cwd(), filePath));
+}
 
 const htmlFile = new FileSystemObject((program as any).out);
 htmlFile.writeFileSync(generateHtmlReport(activeHashValidation.errors));
