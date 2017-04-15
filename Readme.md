@@ -10,7 +10,7 @@
 [![Travis Build Status](https://travis-ci.org/Narazaka/activehashie-validation.js.svg)](https://travis-ci.org/Narazaka/activehashie-validation.js)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Narazaka/activehashie-validation.js?svg=true)](https://ci.appveyor.com/project/Narazaka/activehashie-validation-js)
 [![codecov.io](https://codecov.io/github/Narazaka/activehashie-validation.js/coverage.svg?branch=master)](https://codecov.io/github/Narazaka/activehashie-validation.js?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7657d5c839564b44b9b7f6e47c6a9896)](https://www.codacy.com/app/narazaka/activehashie-validation-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Narazaka/activehashie-validation.js&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1254af9b5a1c480892df28e817fe9219)](https://www.codacy.com/app/narazaka/activehashie-validation-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Narazaka/activehashie-validation.js&amp;utm_campaign=Badge_Grade)
 
 Rails等のマスターデータをJavaScript/TypeScriptでチェック可能にするツールです。
 
