@@ -1,9 +1,12 @@
 import {ActiveHashRecord, Queryable} from "activehashie";
 import {ValidationMethods} from "./validation_methods";
 
-export type ValidationErrorReport<Record extends ActiveHashRecord> = {
-    model: Queryable<Record>, column?: keyof Record, ids?: number[], message: string,
-};
+export interface ValidationErrorReport<Record extends ActiveHashRecord> {
+    model: Queryable<Record>;
+    column?: keyof Record;
+    ids?: number[];
+    message: string;
+}
 
 export type ValidationErrorReports = Array<ValidationErrorReport<any>>;
 

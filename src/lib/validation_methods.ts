@@ -3,8 +3,10 @@ import {ActiveHashValidation} from "./active_hash_validation";
 import {ModelValidationErrorReports} from "./model_validation_error_report";
 import {ValidatesMethod, ValidatesMethods} from "./validates_method";
 
-export type ValidationMethodsCondition<Record extends ActiveHashRecord> =
-    {if?: ActiveHashRecordFilter<Record>, unless?: ActiveHashRecordFilter<Record>};
+export interface ValidationMethodsCondition<Record extends ActiveHashRecord> {
+    if?: ActiveHashRecordFilter<Record>;
+    unless?: ActiveHashRecordFilter<Record>;
+}
 
 export class ValidationMethods<Record extends ActiveHashRecord> {
     private model: EagerQueryable<Record>;
@@ -28,21 +30,21 @@ export class ValidationMethods<Record extends ActiveHashRecord> {
         const model = this.filterModelByCondition(condition);
         switch (method) {
             case "presence":
-                return ValidatesMethod.Method.presence(this.errors, <any> params, model, column);
+                return ValidatesMethod.Method.presence(this.errors, params as any, model, column);
             case "presenceBelongsTo":
-                return ValidatesMethod.Method.presenceBelongsTo(this.errors, <any> params, model, column);
+                return ValidatesMethod.Method.presenceBelongsTo(this.errors, params as any, model, column);
             case "uniqueness":
-                return ValidatesMethod.Method.uniqueness(this.errors, <any> params, model, column);
+                return ValidatesMethod.Method.uniqueness(this.errors, params as any, model, column);
             case "length":
-                return ValidatesMethod.Method.length(this.errors, <any> params, model, column);
+                return ValidatesMethod.Method.length(this.errors, params as any, model, column);
             case "format":
-                return ValidatesMethod.Method.format(this.errors, <any> params, model, column);
+                return ValidatesMethod.Method.format(this.errors, params as any, model, column);
             case "numericality":
-                return ValidatesMethod.Method.numericality(this.errors, <any> params, model, column);
+                return ValidatesMethod.Method.numericality(this.errors, params as any, model, column);
             case "inclusion":
-                return ValidatesMethod.Method.inclusion(this.errors, <any> params, model, column);
+                return ValidatesMethod.Method.inclusion(this.errors, params as any, model, column);
             case "exclusion":
-                return ValidatesMethod.Method.exclusion(this.errors, <any> params, model, column);
+                return ValidatesMethod.Method.exclusion(this.errors, params as any, model, column);
             default:
                 throw new Error(`${method} is not validates method`);
         }
@@ -60,7 +62,7 @@ export class ValidationMethods<Record extends ActiveHashRecord> {
         let model = this.model;
         if (condition.if) model = model.filter(condition.if);
         if (condition.unless)
-            model = model.filter((record) => !(<ActiveHashRecordFilter<Record>> condition.unless)(record));
+            model = model.filter((record) => !(condition.unless as ActiveHashRecordFilter<Record>)(record));
         return model;
     }
 }
