@@ -13,7 +13,8 @@ const program = commander.
     version(version).
     usage("[options] <file or directory ...>").
     option("-e, --extension [extensions]", "extensions ex. \".ts,.js\"", (value) => value.split(","), [".ts"]).
-    option("-o, --out [path]", "html report file path", "report.html");
+    option("-o, --out [path]", "html report file path", "report.html").
+    parse(process.argv);
 
 function filesReqursive(entries: string[], extentions = [".ts"]) {
     const files = [];
