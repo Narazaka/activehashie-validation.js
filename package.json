@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "./dist/es2015/lib/index.js",
   "types": "./dist/es2015/lib/index.d.ts",
+  "bin": "./dist/es2015/bin/ahev.js",
   "files": [
     "dist/es2015/bin",
     "dist/es2015/lib"
