@@ -1,4 +1,4 @@
-#!node
+#!/usr/bin/env node
 import * as commander from "commander";
 import {FileSystemObject} from "fso";
 import * as path from "path";
