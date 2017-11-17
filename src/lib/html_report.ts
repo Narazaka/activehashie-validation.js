@@ -3,6 +3,11 @@ import {inspect} from "util";
 import {ValidationErrorReports} from "../lib";
 import uniq = require("lodash.uniq");
 
+/**
+ * HTMLレポートを作る
+ * @param errors 検出されたエラー
+ * @return HTMLソース
+ */
 export function generateHtmlReport(errors: ValidationErrorReports) {
     if (!errors.length) {
         return (

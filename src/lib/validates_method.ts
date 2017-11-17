@@ -3,6 +3,7 @@ import uniq = require("lodash.uniq");
 import isInteger = require("lodash.isinteger");
 import {ModelValidationErrorReports} from "./model_validation_error_report";
 
+/** validatesで利用できるメソッド名と引数の対応 */
 export interface ValidatesMethods {
     presence: ValidatesMethod.Params.Presence;
     presenceBelongsTo: ValidatesMethod.Params.Presence;
@@ -15,6 +16,7 @@ export interface ValidatesMethods {
 }
 
 export namespace ValidatesMethod {
+    /** validatesで利用できるメソッド引数 */
     export namespace Params {
         export type Presence = true;
         export type Uniqueness = true;
@@ -43,7 +45,9 @@ export namespace ValidatesMethod {
         }
     }
 
+    /** validatesで利用できるメソッド */
     export namespace Method {
+        /** 存在チェック */
         export function presence<Record extends ActiveHashRecord>(
             errors: ModelValidationErrorReports<Record>, _: ValidatesMethod.Params.Presence,
             model: EagerQueryable<Record>, column: keyof Record,
@@ -52,6 +56,7 @@ export namespace ValidatesMethod {
             if (ids.length !== 0) errors.push({column, ids, message: "nullであるデータが存在します"});
         }
 
+        /** 関連を考慮した存在チェック */
         export function presenceBelongsTo<Record extends ActiveHashRecord>(
             errors: ModelValidationErrorReports<Record>, _: ValidatesMethod.Params.Presence,
             model: EagerQueryable<Record>, column: keyof Record,
@@ -60,6 +65,7 @@ export namespace ValidatesMethod {
             if (ids.length !== 0) errors.push({column, ids, message: "参照先がないデータが存在します"});
         }
 
+        /** ユニーク性チェック */
         export function uniqueness<Record extends ActiveHashRecord>(
             errors: ModelValidationErrorReports<Record>, _: ValidatesMethod.Params.Uniqueness,
             model: EagerQueryable<Record>, column: keyof Record,
@@ -86,6 +92,7 @@ export namespace ValidatesMethod {
             }
         }
 
+        /** 長さチェック */
         export function length<Record extends ActiveHashRecord>(
             errors: ModelValidationErrorReports<Record>, params: ValidatesMethod.Params.Length,
             model: EagerQueryable<Record>, column: keyof Record,
@@ -107,6 +114,7 @@ export namespace ValidatesMethod {
             }
         }
 
+        /** 文字列フォーマットチェック */
         export function format<Record extends ActiveHashRecord>(
             errors: ModelValidationErrorReports<Record>, params: ValidatesMethod.Params.Format,
             model: EagerQueryable<Record>, column: keyof Record,
@@ -123,6 +131,7 @@ export namespace ValidatesMethod {
             }
         }
 
+        /** 数値チェック */
         export function numericality<Record extends ActiveHashRecord>(
             errors: ModelValidationErrorReports<Record>, params: ValidatesMethod.Params.Numericality,
             model: EagerQueryable<Record>, column: keyof Record,
@@ -167,6 +176,7 @@ export namespace ValidatesMethod {
             }
         }
 
+        /** 範囲内チェック */
         export function inclusion<Record extends ActiveHashRecord>(
             errors: ModelValidationErrorReports<Record>, params: ValidatesMethod.Params.Inclusion,
             model: EagerQueryable<Record>, column: keyof Record,
@@ -175,6 +185,7 @@ export namespace ValidatesMethod {
             if (ids.length) errors.push({column, ids, message: `[${params.in}]以外のデータが存在します`});
         }
 
+        /** 範囲外チェック */
         export function exclusion<Record extends ActiveHashRecord>(
             errors: ModelValidationErrorReports<Record>, params: ValidatesMethod.Params.Exclusion,
             model: EagerQueryable<Record>, column: keyof Record,
