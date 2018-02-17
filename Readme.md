@@ -5,12 +5,13 @@
 [![npm download total](https://img.shields.io/npm/dt/activehashie-validation.svg)](https://www.npmjs.com/package/activehashie-validation)
 [![npm download by month](https://img.shields.io/npm/dm/activehashie-validation.svg)](https://www.npmjs.com/package/activehashie-validation)
 
-[![Dependency Status](https://david-dm.org/Narazaka/activehashie-validation.js.svg)](https://david-dm.org/Narazaka/activehashie-validation.js)
-[![devDependency Status](https://david-dm.org/Narazaka/activehashie-validation.js/dev-status.svg)](https://david-dm.org/Narazaka/activehashie-validation.js#info=devDependencies)
-[![Travis Build Status](https://travis-ci.org/Narazaka/activehashie-validation.js.svg)](https://travis-ci.org/Narazaka/activehashie-validation.js)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Narazaka/activehashie-validation.js?svg=true)](https://ci.appveyor.com/project/Narazaka/activehashie-validation-js)
+[![Dependency Status](https://david-dm.org/Narazaka/activehashie-validation.js/status.svg)](https://david-dm.org/Narazaka/activehashie-validation.js)
+[![devDependency Status](https://david-dm.org/Narazaka/activehashie-validation.js/dev-status.svg)](https://david-dm.org/Narazaka/activehashie-validation.js?type=dev)
+[![Travis Build Status](https://travis-ci.org/Narazaka/activehashie-validation.js.svg?branch=master)](https://travis-ci.org/Narazaka/activehashie-validation.js)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Narazaka/activehashie-validation.js?svg=true&branch=master)](https://ci.appveyor.com/project/Narazaka/activehashie-validation-js)
 [![codecov.io](https://codecov.io/github/Narazaka/activehashie-validation.js/coverage.svg?branch=master)](https://codecov.io/github/Narazaka/activehashie-validation.js?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1254af9b5a1c480892df28e817fe9219)](https://www.codacy.com/app/narazaka/activehashie-validation-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Narazaka/activehashie-validation.js&amp;utm_campaign=Badge_Grade)
+[![Greenkeeper badge](https://badges.greenkeeper.io/Narazaka/activehashie-validation.js.svg)](https://greenkeeper.io/)
 
 Rails等のマスターデータをJavaScript/TypeScriptでチェック可能にするツールです。
 
