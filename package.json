@@ -27,7 +27,6 @@
     "url": "https://github.com/Narazaka/activehashie-validation.js.git"
   },
   "dependencies": {
-    "@types/commander": "^2.12.2",
     "@types/js-yaml": "^3.10.1",
     "@types/lodash.isinteger": "^4.0.3",
     "@types/lodash.uniq": "^4.5.3",
