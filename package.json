@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "dist": "shx rm -rf dist && tsc",
-    "test": "npm run dist && ava ./dist/test/*.js",
+    "test": "npm run dist && nyc -r html -r text -r lcov ava ./dist/test/*.js",
     "lint": "tslint -p .",
     "prepare": "npm run dist",
     "prepublishOnly": "npm run lint && npm run test"
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "ava": "^0.25.0",
+    "nyc": "^11.4.1",
     "shx": "^0.2.2",
     "tslint": "^5.9.1"
   }
