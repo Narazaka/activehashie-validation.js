@@ -45,6 +45,7 @@ export class ValidationMethods<Record extends ActiveHashRecord> {
      * @param params バリデーション方法による引数
      * @param condition ifあるいはunlessによる絞り込み
      */
+    // tslint:disable-next-line no-shadowed-variable
     validates<ValidatesMethod extends keyof ValidatesMethods>(
         column: keyof Record,
         method: ValidatesMethod,

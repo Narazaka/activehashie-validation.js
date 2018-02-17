@@ -19,6 +19,7 @@ const program = commander.
     parse(process.argv);
 
 function filesReqursive(entries: string[], extentions = [".ts"]) {
+    // tslint:disable-next-line no-shadowed-variable
     const files = [];
     for (const entry of entries) {
         const entrypath = new FileSystemObject(entry);

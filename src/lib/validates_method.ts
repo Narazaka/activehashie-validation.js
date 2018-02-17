@@ -1,6 +1,6 @@
 import {ActiveHashRecord, EagerQueryable} from "activehashie";
-import uniq = require("lodash.uniq");
 import isInteger = require("lodash.isinteger");
+import uniq = require("lodash.uniq");
 import {ModelValidationErrorReports} from "./model_validation_error_report";
 
 /** validatesで利用できるメソッド名と引数の対応 */

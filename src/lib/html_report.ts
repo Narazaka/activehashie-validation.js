@@ -1,7 +1,7 @@
 /* tslint:disable no-console */
+import uniq = require("lodash.uniq");
 import {inspect} from "util";
 import {ValidationErrorReports} from "../lib";
-import uniq = require("lodash.uniq");
 
 /**
  * HTMLレポートを作る

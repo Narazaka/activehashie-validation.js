@@ -10,6 +10,7 @@ test("basic queries", (t) => {
         validates("type", "presence", true);
     });
 
+    // tslint:disable-next-line no-shadowed-variable
     validate(Item, ({validate}) => {
         validate((errors, _) => {
             errors.push({column: "name", ids: [11, 12], message: "fails"});
