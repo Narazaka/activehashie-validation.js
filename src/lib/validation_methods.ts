@@ -22,7 +22,6 @@ export type CustomValidator<Record extends ActiveHashRecord> =
 /** バリデーションを記述する関数に渡されるvalidatesとvalidate */
 export class ValidationMethods<Record extends ActiveHashRecord> {
     private model: EagerQueryable<Record>;
-    private validation: ActiveHashValidation;
     private errors: ModelValidationErrorReports<Record>;
 
     /**
@@ -32,7 +31,6 @@ export class ValidationMethods<Record extends ActiveHashRecord> {
      */
     constructor(model: Queryable<Record>, validation: ActiveHashValidation) {
         this.model = model.eager();
-        this.validation = validation;
         this.errors = new ModelValidationErrorReports(model, validation);
         this.validates = this.validates.bind(this);
         this.validate = this.validate.bind(this);
