@@ -15,8 +15,9 @@
   "scripts": {
     "dist": "rm -rf dist && tsc",
     "test": "npm run dist && ava ./dist/test/*.js",
-    "lint": "tslint *.ts src/**/*.ts test/**/*.ts",
-    "prepublish": "npm run dist"
+    "lint": "tslint -p .",
+    "prepare": "npm run dist",
+    "prepublishOnly": "npm run lint && npm run test"
   },
   "author": "Narazaka",
   "license": "MIT",
