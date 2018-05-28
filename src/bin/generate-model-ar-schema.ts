@@ -7,7 +7,7 @@ import {ModelGenerator} from "../lib/model_generator";
 /* tslint:disable no-console */
 
 if (process.argv.length !== 4) {
-    console.warn("Usage: generate-model db/schema.rb ../check/");
+    console.warn("Usage: generate-model-ar-schema db/schema.rb ../check/");
     process.exit(1);
 }
 
