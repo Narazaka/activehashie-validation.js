@@ -27,15 +27,19 @@
     "url": "https://github.com/Narazaka/activehashie-validation.js.git"
   },
   "dependencies": {
+    "@types/camelcase": "^4.1.0",
     "@types/js-yaml": "^3.10.1",
     "@types/lodash.isinteger": "^4.0.3",
     "@types/lodash.uniq": "^4.5.3",
     "@types/node": "^10.0.3",
+    "@types/pluralize": "0.0.28",
     "activehashie": "^2.4.2",
+    "camelcase": "^5.0.0",
     "commander": "^2.14.1",
     "fso": "^2.5.15",
     "lodash.isinteger": "^4.0.4",
     "lodash.uniq": "^4.5.0",
+    "pluralize": "^7.0.0",
     "ts-node": "^6.0.0",
     "typescript": "^2.7.2"
   },
