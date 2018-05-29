@@ -162,6 +162,23 @@ validate(ItemGroup, ({validate}) => {
 });
 ```
 
+## 自動生成
+
+`db/schema.rb`からTypeScriptコードを自動生成できます。
+
+```bash
+npx generate-model-ar-schema ./db/schema.rb ../checker
+```
+
+以下のファイルが生成されます
+
+- ApplicationTable.ts (同名ファイルがなければ生成 テーブルのベースクラスファイル)
+- Models.ts (テーブルの定義ファイル)
+- Extensions.ts (同名ファイルがなければ生成 テーブルの拡張メソッドを定義するためのファイル)
+- ModelAndExtensions.ts (テーブル拡張メソッドを便利に使うための定義ファイル)
+
+生成されるExtensions.tsに`テーブル名TableExt`（ActiveRecordのscope等）、`テーブル名RecordExt`（ActiveRecordのインスタンスメソッド）を定義していくことができます。
+
 ## See also
 
 - [activehashie](https://github.com/Narazaka/activehashie.js)

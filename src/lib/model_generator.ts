@@ -44,6 +44,7 @@ export class ModelGenerator {
 
     toExtensionExampleCode() {
         return [
+            `import {applyRecordExtension} from "activehashie-validation";`,
             `import * as Models from "./Models";`,
             ``,
             `// tslint:disable max-classes-per-file`,
@@ -96,11 +97,15 @@ export class SchemaTableModelGenerator {
                 `    }`,
                 `}`,
                 ``,
+                `applyRecordExtension(Models.${this.table.tableClassName}, ${this.table.tableExtClassName});`,
+                ``,
                 `export class ${this.table.recordExtClassName} {`,
                 `    bar(this: Models.${this.table.recordClassName}) {`,
                 `        return this._parentTable.name;`,
                 `    }`,
                 `}`,
+                ``,
+                `applyRecordExtension(Models.${this.table.recordClassName}, ${this.table.recordExtClassName});`,
             ],
         );
     }
