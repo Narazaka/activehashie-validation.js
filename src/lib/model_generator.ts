@@ -3,23 +3,41 @@ import { SchemaTable, SchemaTableColumn } from "./schema_table";
 const joinLines = (lines: string[]) => lines.map((line) => `${line}\n`).join("");
 
 export class ModelGenerator {
-    static generate(tables: SchemaTable[]) {
+    tables: SchemaTable[];
+    private readonly tableGenerators: SchemaTableModelGenerator[];
+
+    constructor(tables: SchemaTable[]) {
+        this.tables = tables;
+        this.tableGenerators = tables.map((table) => new SchemaTableModelGenerator(table));
+    }
+
+    toModelCode() {
         return [
             `import {ActiveHash, ActiveHashRecord} from "activehashie";`,
-            `import * as Extensions from "./Extensions";`,
             ``,
             `// tslint:disable max-classes-per-file no-empty-interface variable-name max-line-length`,
             ``,
-            this.generateTables(tables),
+            this.toModelCodeMain(),
         ].join("\n");
     }
 
-    static generateTables(tables: SchemaTable[]) {
-        return tables.map(this.generateTable).join("\n");
+    toDelarationCode() {
+        return [
+            `import * as Extensions from "./Extensions";`,
+            `import * as Models from "./Models";`,
+            ``,
+            `// tslint:disable max-classes-per-file no-empty-interface variable-name max-line-length`,
+            ``,
+            this.toDeclarationCodeMain(),
+        ].join("\n");
     }
 
-    static generateTable(table: SchemaTable) {
-        return new SchemaTableModelGenerator(table).generate();
+    toModelCodeMain() {
+        return this.tableGenerators.map((g) => g.toModelCode()).join("\n");
+    }
+
+    toDeclarationCodeMain() {
+        return this.tableGenerators.map((g) => g.toDeclarationCode()).join("\n");
     }
 }
 
@@ -31,23 +49,28 @@ export class SchemaTableModelGenerator {
         this.table = table;
     }
 
-    generate() {
+    toModelCode() {
         return [
-            this.generateRecordClass(),
-            this.generateTableClass(),
-            this.generateTableConstant(),
-            this.generateExtensionDeclare(),
+            this.recordClassCode(),
+            this.tableClassCode(),
+            this.tableConstantCode(),
         ].join("\n");
     }
 
-    generateTableConstant() {
+    toDeclarationCode() {
+        return [
+            this.declareCode(),
+        ].join("\n");
+    }
+
+    tableConstantCode() {
         return joinLines([
             ...(this.table.comment ? [`/** ${this.table.comment} */`] : []),
             `export const ${this.table.baseClassName} = new ${this.table.tableClassName}();`,
         ]);
     }
 
-    generateTableClass() {
+    tableClassCode() {
         return joinLines(
             [
                 ...(this.table.comment ? [`/** ${this.table.comment} */`] : []),
@@ -60,26 +83,28 @@ export class SchemaTableModelGenerator {
         );
     }
 
-    generateRecordClass() {
+    recordClassCode() {
         return joinLines([
             ...(this.table.comment ? [`/** ${this.table.comment} */`] : []),
             `export class ${this.table.recordClassName} extends ActiveHashRecord {`,
-            ...this.table.columns.map(this.generateColumnProperty),
+            ...this.table.columns.map(this.columnPropertyCode),
             `}`,
         ]);
     }
 
-    generateColumnProperty(column: SchemaTableColumn) {
+    columnPropertyCode(column: SchemaTableColumn) {
         return [
             column.comment ? `    /** ${column.comment} */\n` : "",
             `    ${column.name}${column.null ? "?" : ""}: ${column.type};`,
         ].join("");
     }
 
-    generateExtensionDeclare() {
+    declareCode() {
         return joinLines([
-            `export interface ${this.table.tableClassName} extends Extensions.${this.table.tableExtClassName} { }`,
-            `export interface ${this.table.recordClassName} extends Extensions.${this.table.recordExtClassName} { }`,
+            `declare module "./Models" {`,
+            `    interface ${this.table.tableClassName} extends Extensions.${this.table.tableExtClassName} { }`,
+            `    interface ${this.table.recordClassName} extends Extensions.${this.table.recordExtClassName} { }`,
+            `}`,
             ``,
             `declare module "./Extensions" {`,
             ...(this.table.comment ? [`    /** ${this.table.comment} extension */`] : []),

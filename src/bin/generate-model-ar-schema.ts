@@ -16,10 +16,14 @@ const outDir = process.argv[3];
 
 const schema = fs.readFileSync(schemaFile, "utf8");
 
-const model = ModelGenerator.generate(parse(schema));
+const modelGenerator = new ModelGenerator(parse(schema));
 
 const modelsFile = path.join(outDir, "Models.ts");
+const modelAndExtensionsFile = path.join(outDir, "ModelAndExtensions.ts");
 const extensionsFile = path.join(outDir, "Extensions.ts");
 
-fs.writeFileSync(modelsFile, model);
-if (!fs.existsSync(extensionsFile)) fs.writeFileSync(extensionsFile, "export {}\n");
+fs.writeFileSync(modelsFile, modelGenerator.toModelCode());
+fs.writeFileSync(modelAndExtensionsFile, modelGenerator.toDelarationCode());
+if (!fs.existsSync(extensionsFile)) {
+    fs.writeFileSync(extensionsFile, `import "./ModelAndExtensions";\nimport * as Models from "./Models";\n`);
+}
