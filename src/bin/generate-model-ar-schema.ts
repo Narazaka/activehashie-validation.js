@@ -18,12 +18,12 @@ const schema = fs.readFileSync(schemaFile, "utf8");
 
 const modelGenerator = new ModelGenerator(parse(schema));
 
+const applicationTableFile = path.join(outDir, "ApplicationTable.ts");
 const modelsFile = path.join(outDir, "Models.ts");
 const modelAndExtensionsFile = path.join(outDir, "ModelAndExtensions.ts");
 const extensionsFile = path.join(outDir, "Extensions.ts");
 
+if (!fs.existsSync(applicationTableFile)) fs.writeFileSync(applicationTableFile, modelGenerator.toModelBaseCode());
 fs.writeFileSync(modelsFile, modelGenerator.toModelCode());
 fs.writeFileSync(modelAndExtensionsFile, modelGenerator.toDelarationCode());
-if (!fs.existsSync(extensionsFile)) {
-    fs.writeFileSync(extensionsFile, `import "./ModelAndExtensions";\nimport * as Models from "./Models";\n`);
-}
+if (!fs.existsSync(extensionsFile)) fs.writeFileSync(extensionsFile, modelGenerator.toExtensionExampleCode());

@@ -11,9 +11,19 @@ export class ModelGenerator {
         this.tableGenerators = tables.map((table) => new SchemaTableModelGenerator(table));
     }
 
+    toModelBaseCode() {
+        return joinLines([
+            `import {ActiveHash, ActiveHashRecord} from "activehashie";`,
+            ``,
+            `export class ApplicationTable<Record extends ActiveHashRecord> extends ActiveHash<Record> {`,
+            `}`,
+        ]);
+    }
+
     toModelCode() {
         return [
-            `import {ActiveHash, ActiveHashRecord} from "activehashie";`,
+            `import {ActiveHashRecord} from "activehashie";`,
+            `import {ApplicationTable} from "./ApplicationTable";`,
             ``,
             `// tslint:disable max-classes-per-file no-empty-interface variable-name max-line-length`,
             ``,
@@ -32,12 +42,26 @@ export class ModelGenerator {
         ].join("\n");
     }
 
+    toExtensionExampleCode() {
+        return [
+            `import * as Models from "./Models";`,
+            ``,
+            `// tslint:disable max-classes-per-file`,
+            ``,
+            this.toExtensionExampleCodeMain(),
+        ].join("\n");
+    }
+
     toModelCodeMain() {
         return this.tableGenerators.map((g) => g.toModelCode()).join("\n");
     }
 
     toDeclarationCodeMain() {
         return this.tableGenerators.map((g) => g.toDeclarationCode()).join("\n");
+    }
+
+    toExtensionExampleCodeMain() {
+        return this.tableGenerators[0].toExtensionExampleCode();
     }
 }
 
@@ -63,6 +87,24 @@ export class SchemaTableModelGenerator {
         ].join("\n");
     }
 
+    toExtensionExampleCode() {
+        return joinLines(
+            [
+                `export class ${this.table.tableExtClassName} {`,
+                `    foo(this: Models.${this.table.tableClassName}) {`,
+                `        return this.all().toArray()[0];`,
+                `    }`,
+                `}`,
+                ``,
+                `export class ${this.table.recordExtClassName} {`,
+                `    bar(this: Models.${this.table.recordClassName}) {`,
+                `        return this._parentTable.name;`,
+                `    }`,
+                `}`,
+            ],
+        );
+    }
+
     tableConstantCode() {
         return joinLines([
             ...(this.table.comment ? [`/** ${this.table.comment} */`] : []),
@@ -74,7 +116,7 @@ export class SchemaTableModelGenerator {
         return joinLines(
             [
                 ...(this.table.comment ? [`/** ${this.table.comment} */`] : []),
-                `export class ${this.table.tableClassName} extends ActiveHash<${this.table.recordClassName}> {`,
+                `export class ${this.table.tableClassName} extends ApplicationTable<${this.table.recordClassName}> {`,
                 `    constructor() {`,
                 `        super("${this.table.baseClassName}", ${this.table.recordClassName});`,
                 `    }`,
