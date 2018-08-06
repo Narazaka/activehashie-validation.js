@@ -12,6 +12,8 @@ const typeMap: {[name: string]: SchemaTableColumnType} = {
     date: "Date",
 };
 
+const commentRe = /comment:\s+"((?:\\\\|\\"|[^"])*)"/;
+
 export function parse(schema: string) {
     let currentTable: SchemaTable | undefined;
     const tables: SchemaTable[] = [];
@@ -23,8 +25,12 @@ export function parse(schema: string) {
             // テーブルを開く
             currentTable = new SchemaTable(createTableMatch[1]);
             tables.push(currentTable);
-            const commentMatch = /comment:\s+"((?:\\\\|\\"|[^"])*)"/.exec(line);
-            if (commentMatch) currentTable.comment = commentMatch[1];
+            // id と table 両方にコメントが存在する場合create_table列"idコメント", "tableコメント"の順で記述される
+            const commentMatch1 = commentRe.exec(line);
+            if (commentMatch1) {
+                const commentMatch2 = commentRe.exec(line.slice(commentMatch1.index + 1));
+                currentTable.comment = commentMatch2 ? commentMatch2[1] : commentMatch1[1];
+            }
             const primaryMatch = /primary_key:\s+(?:\[([^]*)\]|"([^"]+)")/.exec(line);
             if (primaryMatch) {
                 if (primaryMatch[1]) {
