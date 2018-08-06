@@ -64,4 +64,4 @@ export class ActiveHashValidation {
 export const activeHashValidation = new ActiveHashValidation();
 
 /** モデルをバリデートする */
-export const validate = activeHashValidation.validate;
+export const validateModel = activeHashValidation.validate;
