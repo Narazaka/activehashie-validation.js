@@ -78,7 +78,7 @@ export function generateHtmlReport(errors: ValidationErrorReports) {
                         errorsByGroup.map((error, index) => `
                             <li>
                                 <a href="#${modelName}-${index + 1}">
-                                    <span class="column">${error.column == null ? "" : error.column}</span>
+                                    <span class="column">${error.column == null ? "" : error.column as string}</span>
                                     <span class="message">${error.message}</span>
                                 </a>
                             </li>
@@ -90,7 +90,7 @@ export function generateHtmlReport(errors: ValidationErrorReports) {
                             <section id="${modelName}-${index + 1}">
                                 <h3>
                                     <span class="index">${index + 1}</span>
-                                    <span class="column">${error.column == null ? "" : error.column}</span>
+                                    <span class="column">${error.column == null ? "" : error.column as string}</span>
                                     <span class="message">${error.message}</span>
                                 </h3>
                                 <table>
@@ -98,7 +98,7 @@ export function generateHtmlReport(errors: ValidationErrorReports) {
                                     <tr>
                                         <th>ID</th>
                                         <th> </th>
-                                        <th>${error.column == null ? "" : error.column}</th>
+                                        <th>${error.column == null ? "" : error.column as string}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -55,7 +55,7 @@ export class ActiveHashValidation {
     errorMessages() {
         return this.errors.map(
             (error) =>
-                `テーブル[${error.model.name}]のレコードID=${error.ids} カラム[${error.column}]において ${error.message}`,
+                `テーブル[${error.model.name}]のレコードID=${error.ids} カラム[${error.column as string}]において ${error.message}`,
         );
     }
 }
