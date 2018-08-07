@@ -26,6 +26,7 @@ export class SchemaTable {
 
     get tableClassName() { return `${this.baseClassName}Table`; }
     get recordClassName() { return `${this.baseClassName}Record`; }
+    get recordColumnTypeName() { return `${this.baseClassName}Column`; }
     get tableExtClassName() { return `${this.tableClassName}Ext`; }
     get recordExtClassName() { return `${this.recordClassName}Ext`; }
 }

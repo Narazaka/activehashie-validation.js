@@ -77,6 +77,7 @@ export class SchemaTableModelGenerator {
     toModelCode() {
         return [
             this.recordClassCode(),
+            this.recordColumnCode(),
             this.tableClassCode(),
             this.tableConstantCode(),
         ].join("\n");
@@ -144,6 +145,14 @@ export class SchemaTableModelGenerator {
             column.comment ? `    /** ${column.comment} */\n` : "",
             `    ${column.name}${column.null ? "?" : ""}: ${column.type};`,
         ].join("");
+    }
+
+    recordColumnCode() {
+        return joinLines([
+            ...(this.table.comment ? [`/** ${this.table.comment} column name */`] : []),
+            `export type ${this.table.recordColumnTypeName} = ` +
+            `Exclude<keyof ${this.table.recordClassName}, "_parentTable">;`,
+        ]);
     }
 
     declareCode() {
