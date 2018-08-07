@@ -5,6 +5,7 @@ import * as path from "path";
 import {
     activeHashValidation,
     generateHtmlReport,
+    styleSheet,
 } from "../lib";
 /* tslint:disable no-console */
 /* tslint:disable no-var-requires */
@@ -16,6 +17,7 @@ const program = commander.
     usage("[options] <file or directory ...>").
     option("-e, --extension [extensions]", "extensions ex. \".ts,.js\"", (value) => value.split(","), [".ts"]).
     option("-o, --out [path]", "html report file path", "report.html").
+    option("-c, --css [filename]", "css filename (or inline stylesheet)", "").
     parse(process.argv);
 
 function filesReqursive(entries: string[], extentions = [".ts"]) {
@@ -42,8 +44,13 @@ for (const file of files) {
     require(/^[\/.]/.test(filePath) ? filePath : path.join(process.cwd(), filePath));
 }
 
+const cssFileName = (program as any).css;
 const htmlFile = new FileSystemObject((program as any).out);
-htmlFile.writeFileSync(generateHtmlReport(activeHashValidation.errors));
+htmlFile.writeFileSync(generateHtmlReport(activeHashValidation.errors, !cssFileName));
+if (cssFileName) {
+    const cssFile = new FileSystemObject(cssFileName);
+    cssFile.writeFileSync(styleSheet);
+}
 
 if (activeHashValidation.errors.length) {
     activeHashValidation.errorMessages().forEach((message) => {
