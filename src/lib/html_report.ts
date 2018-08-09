@@ -36,7 +36,7 @@ th, td { border: 1px solid black; padding: 0.2em; }
  * @param errors 検出されたエラー
  * @return HTMLソース
  */
-export function generateHtmlReport(errors: ValidationErrorReports, inlineStyle = true) {
+export function generateHtmlReport(errors: ValidationErrorReports, cssFileName?: string) {
     if (!errors.length) {
         return (
             `<!doctype html>
@@ -59,9 +59,10 @@ export function generateHtmlReport(errors: ValidationErrorReports, inlineStyle =
                 <meta charset="utf-8">
                 <title>データエラー</title>
                 ${
-                    inlineStyle ?
-                    `<style>${styleSheet}</style>` :
-                    ""}
+                    cssFileName ?
+                    `<link rel="stylesheet" href="${cssFileName}">` :
+                    `<style>${styleSheet}</style>`
+                }
             </head>
         <body>
         <nav>

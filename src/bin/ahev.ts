@@ -46,7 +46,7 @@ for (const file of files) {
 
 const cssFileName = (program as any).css;
 const htmlFile = new FileSystemObject((program as any).out);
-htmlFile.writeFileSync(generateHtmlReport(activeHashValidation.errors, !cssFileName));
+htmlFile.writeFileSync(generateHtmlReport(activeHashValidation.errors, cssFileName));
 if (cssFileName) {
     const cssFile = new FileSystemObject(cssFileName);
     cssFile.writeFileSync(styleSheet);
