@@ -27,6 +27,8 @@ export class ModelGenerator {
             ``,
             `// tslint:disable max-classes-per-file no-empty-interface variable-name max-line-length`,
             ``,
+            `export type ColumnNameOf<T> = Exclude<keyof T, "_parentTable">;`,
+            ``,
             this.toModelCodeMain(),
         ].join("\n");
     }
@@ -150,8 +152,7 @@ export class SchemaTableModelGenerator {
     recordColumnCode() {
         return joinLines([
             ...(this.table.comment ? [`/** ${this.table.comment} column name */`] : []),
-            `export type ${this.table.recordColumnTypeName} = ` +
-            `Exclude<keyof ${this.table.recordClassName}, "_parentTable">;`,
+            `export type ${this.table.recordColumnTypeName} = ColumnNameOf<${this.table.recordClassName}>;`,
         ]);
     }
 
