@@ -15,6 +15,21 @@
 
 Rails等のマスターデータをJavaScript/TypeScriptでチェック可能にするツールです。
 
+```typescript
+validateModel(Item, ({validates, validate}) => {
+    validates("name", "presence", true);
+    validates("name", "uniqueness", true);
+    validates("type", "presence", true);
+    validate((errors, items) => {
+        const ids = items.where().not({type: ["a", "b"]}).pluck("id");
+        if (ids.length) {
+            errors.push({column: "type", ids, message: "typeは'a', 'b'のいずれかであるべきです"});
+        }
+    });
+    validates("itemGroup", "presenceBelongsTo", true); // 参照先の存在をチェック
+});
+```
+
 ## 使用方法
 
 `rails_app/db/seeds.rb`にてデータをテーブルごとにymlファイルから読み込む仕組みになっているとします。
