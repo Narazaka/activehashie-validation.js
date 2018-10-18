@@ -37,7 +37,7 @@ function filesReqursive(entries: string[], extentions = [".ts"]) {
     return files;
 }
 
-const files = filesReqursive(program.args.length ? program.args : ["spec", "models"], (program as any).extension);
+const files = filesReqursive(program.args.length ? program.args : ["models", "spec"], (program as any).extension);
 if (!files.length) program.help();
 for (const file of files) {
     const filePath = file.path;
