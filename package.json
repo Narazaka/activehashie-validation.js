@@ -32,7 +32,7 @@
     "@types/js-yaml": "^3.10.1",
     "@types/lodash.isinteger": "^4.0.3",
     "@types/lodash.uniq": "^4.5.3",
-    "@types/node": "^11.9.0",
+    "@types/node": "^13.11.0",
     "@types/pluralize": "0.0.29",
     "activehashie": "^2.4.2",
     "camelcase": "^5.0.0",
