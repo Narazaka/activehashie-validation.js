@@ -35,7 +35,7 @@
     "@types/node": "^11.9.0",
     "@types/pluralize": "0.0.29",
     "activehashie": "^2.4.2",
-    "camelcase": "^5.0.0",
+    "camelcase": "^6.0.0",
     "commander": "^2.14.1",
     "fso": "^2.5.15",
     "lodash.isinteger": "^4.0.4",
