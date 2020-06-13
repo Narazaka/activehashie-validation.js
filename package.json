@@ -16,7 +16,7 @@
   "scripts": {
     "dist": "shx rm -rf dist && tsc",
     "test": "npm run dist && nyc -r html -r text -r lcov ava ./dist/test/*.js",
-    "lint": "tslint -p .",
+    "lint": "eslint --ext .ts,.js",
     "prepare": "npm run dist",
     "prepublishOnly": "npm run lint && npm run test"
   },
