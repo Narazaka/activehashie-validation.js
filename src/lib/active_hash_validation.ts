@@ -14,7 +14,7 @@ export interface ValidationErrorReport<Record extends ActiveHashRecord> {
 }
 
 /** バリデーションエラーレポート群 */
-export type ValidationErrorReports = Array<ValidationErrorReport<any>>;
+export type ValidationErrorReports = ValidationErrorReport<any>[];
 
 /** バリデーションを記述する関数 */
 export type ValidationsFunction<Record extends ActiveHashRecord> =

@@ -31,7 +31,7 @@ export class ModelValidationErrorReports<Record extends ActiveHashRecord> {
      * 個別モデルのバリデーションエラーレポートを追加する
      * @param reports 個別モデルのバリデーションエラーレポート
      */
-    push(...reports: Array<ModelValidationErrorReport<Record>>) {
+    push(...reports: ModelValidationErrorReport<Record>[]) {
         for (const report of reports) {
             this.validation.errors.push(
                 {model: this.model, column: report.column, ids: report.ids, message: report.message},

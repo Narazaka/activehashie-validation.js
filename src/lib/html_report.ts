@@ -47,7 +47,7 @@ export function generateHtmlReport(errors: ValidationErrorReports, cssFileName?:
         );
     }
     const modelNames = uniq(errors.map((error) => error.model.name));
-    const groupedErrors: Array<{modelName: string, errorsByGroup: ValidationErrorReports}> = [];
+    const groupedErrors: {modelName: string, errorsByGroup: ValidationErrorReports}[] = [];
     for (const modelName of modelNames.sort()) {
         const errorsByGroup = errors.filter((error) => error.model.name === modelName);
         groupedErrors.push({modelName, errorsByGroup});
