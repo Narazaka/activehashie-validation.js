@@ -1,8 +1,4 @@
-import {
-    ActiveHashRecord,
-    ActiveHashRecordBase,
-    ActiveYaml,
-} from "activehashie";
+import { ActiveHashRecord, ActiveHashRecordBase, ActiveYaml } from "activehashie";
 
 const rootPath = "../rails_app/db/seeds";
 
@@ -10,13 +6,13 @@ export class ApplicationRecord<Record extends ActiveHashRecord> extends ActiveYa
     constructor(
         name: string,
         recordClass: new (source: ActiveHashRecordBase) => Record,
-        indexColumns?: Array<keyof (Record)>,
+        indexColumns?: Array<keyof Record>,
     ) {
-        super(name, recordClass, {rootPath, indexColumns});
+        super(name, recordClass, { rootPath, indexColumns });
     }
 }
 
 // displayNameメソッドを定義しておくと、エラー表示の時にそのレコードを表すものとして使われます。
-(<any> ActiveHashRecord.prototype).displayName = function () {
+(<any>ActiveHashRecord.prototype).displayName = function displayName() {
     return this.name;
 };

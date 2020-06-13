@@ -1,10 +1,10 @@
 /* tslint:disable no-console */
+import { inspect } from "util";
 import uniq = require("lodash.uniq");
-import {inspect} from "util";
-import {ValidationErrorReports} from "../lib";
+// eslint-disable-next-line import/first
+import { ValidationErrorReports } from "./active_hash_validation";
 
-export const styleSheet =
-`* { font-family: Meiryo; line-height: 1.6em; }
+export const styleSheet = `* { font-family: Meiryo; line-height: 1.6em; }
 body { margin: 0; }
 nav {
     position: fixed;
@@ -38,65 +38,65 @@ th, td { border: 1px solid black; padding: 0.2em; }
  */
 export function generateHtmlReport(errors: ValidationErrorReports, cssFileName?: string) {
     if (!errors.length) {
-        return (
-            `<!doctype html>
+        return `<!doctype html>
             <html>
             <meta charset="utf-8"><title>データエラー</title>
             <body><h1>全チェック項目問題ありませんでした</h1></body>
-            </html>`
-        );
+            </html>`;
     }
     const modelNames = uniq(errors.map((error) => error.model.name));
-    const groupedErrors: {modelName: string, errorsByGroup: ValidationErrorReports}[] = [];
+    const groupedErrors: { modelName: string; errorsByGroup: ValidationErrorReports }[] = [];
     for (const modelName of modelNames.sort()) {
         const errorsByGroup = errors.filter((error) => error.model.name === modelName);
-        groupedErrors.push({modelName, errorsByGroup});
+        groupedErrors.push({ modelName, errorsByGroup });
     }
-    return (`
+    return `
         <!doctype html>
         <html>
             <head>
                 <meta charset="utf-8">
                 <title>データエラー</title>
-                ${
-                    cssFileName ?
-                    `<link rel="stylesheet" href="${cssFileName}">` :
-                    `<style>${styleSheet}</style>`
-                }
+                ${cssFileName ? `<link rel="stylesheet" href="${cssFileName}">` : `<style>${styleSheet}</style>`}
             </head>
         <body>
         <nav>
             <h1>データエラー</h1>
             <ul>
-            ${
-                groupedErrors.map(({modelName, errorsByGroup}) => `
+            ${groupedErrors
+                .map(
+                    ({ modelName, errorsByGroup }) => `
                     <li><a href="#${modelName}">${modelName} (${errorsByGroup.length})</a></li>
-                `).join("")
-            }
+                `,
+                )
+                .join("")}
             </ul>
         </nav>
-        ${
-            groupedErrors.map(({modelName, errorsByGroup}) => `
+        ${groupedErrors
+            .map(
+                ({ modelName, errorsByGroup }) => `
                 <article id="${modelName}">
                     <h2>${modelName}</h2>
                     <ol>
-                    ${
-                        errorsByGroup.map((error, index) => `
+                    ${errorsByGroup
+                        .map(
+                            (error, index) => `
                             <li>
                                 <a href="#${modelName}-${index + 1}">
-                                    <span class="column">${error.column == null ? "" : error.column as string}</span>
+                                    <span class="column">${error.column == null ? "" : (error.column as string)}</span>
                                     <span class="message">${error.message}</span>
                                 </a>
                             </li>
-                        `).join("")
-                    }
+                        `,
+                        )
+                        .join("")}
                     </ol>
-                    ${
-                        errorsByGroup.map((error, index) => `
+                    ${errorsByGroup
+                        .map(
+                            (error, index) => `
                             <section id="${modelName}-${index + 1}">
                                 <h3>
                                     <span class="index">${index + 1}</span>
-                                    <span class="column">${error.column == null ? "" : error.column as string}</span>
+                                    <span class="column">${error.column == null ? "" : (error.column as string)}</span>
                                     <span class="message">${error.message}</span>
                                 </h3>
                                 <table>
@@ -104,32 +104,38 @@ export function generateHtmlReport(errors: ValidationErrorReports, cssFileName?:
                                     <tr>
                                         <th>ID</th>
                                         <th> </th>
-                                        <th>${error.column == null ? "" : error.column as string}</th>
+                                        <th>${error.column == null ? "" : (error.column as string)}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${
-                                        error.model.where({id: error.ids}).toArray().map((record) => `
+                                    ${error.model
+                                        .where({ id: error.ids })
+                                        .toArray()
+                                        .map(
+                                            (record) => `
                                             <tr>
                                                 <td>${record.id}</td>
                                                 <td>${
-                                                    "displayName" in record ?
-                                                        (record as any).displayName() :
-                                                        inspect(record, false, 0, false)
+                                                    "displayName" in record
+                                                        ? (record as any).displayName()
+                                                        : inspect(record, false, 0, false)
                                                 }</td>
                                                 <td>${error.column ? record[error.column] : ""}</td>
                                             </tr>
-                                        `).join("")
-                                    }
+                                        `,
+                                        )
+                                        .join("")}
                                 </tbody>
                                 </table>
                             </section>
-                        `).join("")
-                    }
+                        `,
+                        )
+                        .join("")}
                 </article>
-            `).join("")
-        }
+            `,
+            )
+            .join("")}
         </body>
         </html>
-    `);
+    `;
 }

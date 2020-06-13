@@ -1,9 +1,11 @@
+/* eslint-disable max-classes-per-file */
 import { SchemaTable, SchemaTableColumn } from "./schema_table";
 
 const joinLines = (lines: string[]) => lines.map((line) => `${line}\n`).join("");
 
 export class ModelGenerator {
     tables: SchemaTable[];
+
     private readonly tableGenerators: SchemaTableModelGenerator[];
 
     constructor(tables: SchemaTable[]) {
@@ -11,6 +13,7 @@ export class ModelGenerator {
         this.tableGenerators = tables.map((table) => new SchemaTableModelGenerator(table));
     }
 
+    // eslint-disable-next-line class-methods-use-this
     toModelBaseCode() {
         return joinLines([
             `import {ActiveHash, ActiveHashRecord} from "activehashie";`,
@@ -77,40 +80,33 @@ export class SchemaTableModelGenerator {
     }
 
     toModelCode() {
-        return [
-            this.recordClassCode(),
-            this.recordColumnCode(),
-            this.tableClassCode(),
-            this.tableConstantCode(),
-        ].join("\n");
+        return [this.recordClassCode(), this.recordColumnCode(), this.tableClassCode(), this.tableConstantCode()].join(
+            "\n",
+        );
     }
 
     toDeclarationCode() {
-        return [
-            this.declareCode(),
-        ].join("\n");
+        return [this.declareCode()].join("\n");
     }
 
     toExtensionExampleCode() {
-        return joinLines(
-            [
-                `export class ${this.table.tableExtClassName} {`,
-                `    foo(this: Models.${this.table.tableClassName}) {`,
-                `        return this.all().toArray()[0];`,
-                `    }`,
-                `}`,
-                ``,
-                `applyRecordExtension(Models.${this.table.tableClassName}, ${this.table.tableExtClassName});`,
-                ``,
-                `export class ${this.table.recordExtClassName} {`,
-                `    bar(this: Models.${this.table.recordClassName}) {`,
-                `        return this._parentTable.name;`,
-                `    }`,
-                `}`,
-                ``,
-                `applyRecordExtension(Models.${this.table.recordClassName}, ${this.table.recordExtClassName});`,
-            ],
-        );
+        return joinLines([
+            `export class ${this.table.tableExtClassName} {`,
+            `    foo(this: Models.${this.table.tableClassName}) {`,
+            `        return this.all().toArray()[0];`,
+            `    }`,
+            `}`,
+            ``,
+            `applyRecordExtension(Models.${this.table.tableClassName}, ${this.table.tableExtClassName});`,
+            ``,
+            `export class ${this.table.recordExtClassName} {`,
+            `    bar(this: Models.${this.table.recordClassName}) {`,
+            `        return this._parentTable.name;`,
+            `    }`,
+            `}`,
+            ``,
+            `applyRecordExtension(Models.${this.table.recordClassName}, ${this.table.recordExtClassName});`,
+        ]);
     }
 
     tableConstantCode() {
@@ -121,16 +117,14 @@ export class SchemaTableModelGenerator {
     }
 
     tableClassCode() {
-        return joinLines(
-            [
-                ...(this.table.comment ? [`/** ${this.table.comment} */`] : []),
-                `export class ${this.table.tableClassName} extends ApplicationTable<${this.table.recordClassName}> {`,
-                `    constructor() {`,
-                `        super("${this.table.baseClassName}", ${this.table.recordClassName});`,
-                `    }`,
-                `}`,
-            ],
-        );
+        return joinLines([
+            ...(this.table.comment ? [`/** ${this.table.comment} */`] : []),
+            `export class ${this.table.tableClassName} extends ApplicationTable<${this.table.recordClassName}> {`,
+            `    constructor() {`,
+            `        super("${this.table.baseClassName}", ${this.table.recordClassName});`,
+            `    }`,
+            `}`,
+        ]);
     }
 
     recordClassCode() {
@@ -142,6 +136,7 @@ export class SchemaTableModelGenerator {
         ]);
     }
 
+    // eslint-disable-next-line class-methods-use-this
     columnPropertyCode(column: SchemaTableColumn) {
         return [
             column.comment ? `    /** ${column.comment} */\n` : "",

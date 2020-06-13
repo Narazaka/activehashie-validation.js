@@ -1,5 +1,5 @@
-import {ActiveHashRecord, Queryable} from "activehashie";
-import {ValidationMethods} from "./validation_methods";
+import { ActiveHashRecord, Queryable } from "activehashie";
+import { ValidationMethods } from "./validation_methods";
 
 /** バリデーションエラーレポート */
 export interface ValidationErrorReport<Record extends ActiveHashRecord> {
@@ -41,10 +41,7 @@ export class ActiveHashValidation {
      * @param model モデル
      * @param validations バリデーションを記述する関数
      */
-    validate<Record extends ActiveHashRecord>(
-        model: Queryable<Record>,
-        validations: ValidationsFunction<Record>,
-    ) {
+    validate<Record extends ActiveHashRecord>(model: Queryable<Record>, validations: ValidationsFunction<Record>) {
         const validationMethods = new ValidationMethods(model, this);
         validationMethods.validates("id", "presence", true);
         validationMethods.validates("id", "uniqueness", true);
@@ -55,7 +52,9 @@ export class ActiveHashValidation {
     errorMessages() {
         return this.errors.map(
             (error) =>
-                `テーブル[${error.model.name}]のレコードID=${error.ids} カラム[${error.column as string}]において ${error.message}`,
+                `テーブル[${error.model.name}]のレコードID=${error.ids} カラム[${error.column as string}]において ${
+                    error.message
+                }`,
         );
     }
 }

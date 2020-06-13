@@ -1,5 +1,5 @@
-import {ActiveHashRecord, Queryable} from "activehashie";
-import {ActiveHashValidation} from "./active_hash_validation";
+import { ActiveHashRecord, Queryable } from "activehashie";
+import { ActiveHashValidation } from "./active_hash_validation";
 
 /** 個別モデルのバリデーションエラーレポート */
 export interface ModelValidationErrorReport<Record extends ActiveHashRecord> {
@@ -14,6 +14,7 @@ export interface ModelValidationErrorReport<Record extends ActiveHashRecord> {
 /** 個別モデルのバリデーションエラーレポート群 */
 export class ModelValidationErrorReports<Record extends ActiveHashRecord> {
     private model: Queryable<Record>;
+
     private validation: ActiveHashValidation;
 
     /**
@@ -33,9 +34,12 @@ export class ModelValidationErrorReports<Record extends ActiveHashRecord> {
      */
     push(...reports: ModelValidationErrorReport<Record>[]) {
         for (const report of reports) {
-            this.validation.errors.push(
-                {model: this.model, column: report.column, ids: report.ids, message: report.message},
-            );
+            this.validation.errors.push({
+                model: this.model,
+                column: report.column,
+                ids: report.ids,
+                message: report.message,
+            });
         }
     }
 }

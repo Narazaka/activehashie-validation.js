@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
+/* eslint-disable no-console */
 import * as fs from "fs";
 import * as path from "path";
-import {parse} from "../lib/active_record_schema_parse";
-import {ModelGenerator} from "../lib/model_generator";
+import { parse } from "../lib/active_record_schema_parse";
+import { ModelGenerator } from "../lib/model_generator";
 /* tslint:disable no-console */
 
 if (process.argv.length !== 4) {

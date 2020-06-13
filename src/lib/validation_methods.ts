@@ -1,7 +1,7 @@
-import {ActiveHashRecord, ActiveHashRecordFilter, EagerQueryable, Queryable} from "activehashie";
-import {ActiveHashValidation} from "./active_hash_validation";
-import {ModelValidationErrorReports} from "./model_validation_error_report";
-import {ValidatesMethod, ValidatesMethods} from "./validates_method";
+import { ActiveHashRecord, ActiveHashRecordFilter, EagerQueryable, Queryable } from "activehashie";
+import { ActiveHashValidation } from "./active_hash_validation";
+import { ModelValidationErrorReports } from "./model_validation_error_report";
+import { ValidatesMethod, ValidatesMethods } from "./validates_method";
 
 /** バリデート時の絞り込み */
 export interface ValidationMethodsCondition<Record extends ActiveHashRecord> {
@@ -22,6 +22,7 @@ export type CustomValidator<Record extends ActiveHashRecord> =
 /** バリデーションを記述する関数に渡されるvalidatesとvalidate */
 export class ValidationMethods<Record extends ActiveHashRecord> {
     private model: EagerQueryable<Record>;
+
     private errors: ModelValidationErrorReports<Record>;
 
     /**
@@ -82,16 +83,13 @@ export class ValidationMethods<Record extends ActiveHashRecord> {
      * @param validator カスタムバリデーター
      * @param condition ifあるいはunlessによる絞り込み
      */
-    validate(
-        validator: CustomValidator<Record>,
-        condition: ValidationMethodsCondition<Record> = {},
-    ) {
+    validate(validator: CustomValidator<Record>, condition: ValidationMethodsCondition<Record> = {}) {
         const model = this.filterModelByCondition(condition);
         validator(this.errors, model);
     }
 
     private filterModelByCondition(condition: ValidationMethodsCondition<Record>) {
-        let model = this.model;
+        let { model } = this;
         if (condition.if) model = model.filter(condition.if);
         if (condition.unless)
             model = model.filter((record) => !(condition.unless as ActiveHashRecordFilter<Record>)(record));
